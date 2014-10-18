@@ -1,0 +1,94 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1265\cocoasubrtf210
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+\margl1440\margr1440\vieww9000\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
+
+\f0\fs24 \cf0 \
+\
+
+\b\fs36 Overview
+\b0\fs24 \
+\
+This project is intended to show a bug that occurs on the Xcode simulator when certain movies are processed by adding an instance of AVAssetReaderVideoCompositionOutput\
+to an  AVAssetReader object using the addOutput: method.\
+\
+The bug manifests itself as a hang of the call to the AVAssetReaderOutput method copyNextSampleBuffer.\
+\
+There is no issue on a real device.\
+\
+\
+
+\b\fs36 Environment
+\b0\fs24 \
+\
+Xcode Version: 6.0.1 (6A317)\
+\
+\
+\
+
+\b\fs36 Details
+\b0\fs24 \
+\
+
+\b Example
+\b0 \
+\
+This project contains an example which shows the issue.   In ViewController.m, viewDidLoad will call the export method which will export the bundled movie as MP4 to the tmp directory and then play the movie inside a MPMoviePlayerController instance.\
+\
+There are two movies included in the Bundle Resources, either of which may be loaded at the start of the export method.\
+\
+portrait_rear_facing.MOV is commented out by default.   This movie will load, export and play correctly on both the simulator and real device.\
+\
+\pard\tx529\pardeftab529\pardirnatural
+\cf0 portrait_front_facing.MOV is enabled by default.  This movie will load, export and play correctly on a real device.   It will hang on the simulator.\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
+\cf0 \
+\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
+
+\b \cf0 copyNextSampleBuffer
+\b0 \
+\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
+\cf0 The hang on the simulator occurs in SDAVAssetExportSession.m in the method encodeReadySamplesFromOutput:toInput: at line 228 where copyNextSampleBuffer is called.\
+\
+This code for SDAVAssetExportSession.m was obtained from https://github.com/rs/SDAVAssetExportSession.  It is a AVAssetExportSession drop-in replacement with customizable audio&video settings.   There is no indication that any of this code is responsible for the bug.\
+\
+\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
+
+\b \cf0 AVAssetReaderVideoCompositionOutput
+\b0 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
+\cf0 \
+An instance of AVAssetReaderVideoCompositionOutput is added to AVAssetReader in SDAVAssetExportSession.m.   The videoComposition property of the former instance is set based on the output of getVideoComposition:videoSize: in ViewController.m.\
+\
+I have determined that the AVMutableVideoComposition returned by getVideoComposition:videoSize: is not a factor in the bug.\
+\
+I was able to also produce the bug when the videoComposition property in SDAVAssetExportSession.m was instead set by a call to \
+[AVVideoComposition videoCompositionWithPropertiesOfAsset:self.asset];\
+\
+\
+
+\b AVAssetReaderTrackOutput
+\b0 \
+\
+Replacing the AVAssetReaderVideoCompositionOutput with an instance of AVAssetReaderTrackOutput fixes the bug.  In this case, there is no AVVideoComposition property.\
+\
+This has led me to conclude that the bug is restricted to the use of a video composition.\
+\
+\
+\
+
+\b Expected output
+\b0 \
+\
+Upon success, the console should output "Video export succeeded" and the exported MP4 movie should begin playback.\
+\
+\
+\
+\
+\
+\
+}
