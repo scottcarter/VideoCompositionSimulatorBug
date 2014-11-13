@@ -18,6 +18,7 @@
 		A712CC2E19F1A884001D55D1 /* SDAVAssetExportSession.m in Sources */ = {isa = PBXBuildFile; fileRef = A712CC2D19F1A884001D55D1 /* SDAVAssetExportSession.m */; };
 		A712CC3019F1B271001D55D1 /* portrait_rear_facing.MOV in Resources */ = {isa = PBXBuildFile; fileRef = A712CC2F19F1B271001D55D1 /* portrait_rear_facing.MOV */; };
 		A712CC3219F1EBCE001D55D1 /* README.rtf in Resources */ = {isa = PBXBuildFile; fileRef = A712CC3119F1EBCE001D55D1 /* README.rtf */; };
+		A7E9C2F81A156D340051F07D /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = A7E9C2F71A156D340051F07D /* README.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		A712CC2D19F1A884001D55D1 /* SDAVAssetExportSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SDAVAssetExportSession.m; path = SDAVAssetExportSession/SDAVAssetExportSession.m; sourceTree = SOURCE_ROOT; };
 		A712CC2F19F1B271001D55D1 /* portrait_rear_facing.MOV */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = portrait_rear_facing.MOV; sourceTree = "<group>"; };
 		A712CC3119F1EBCE001D55D1 /* README.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = README.rtf; sourceTree = "<group>"; };
+		A7E9C2F71A156D340051F07D /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +74,7 @@
 		A712CBF819F15028001D55D1 = {
 			isa = PBXGroup;
 			children = (
+				A7E9C2F71A156D340051F07D /* README.md */,
 				A712CC0319F15028001D55D1 /* VideoCompositionSimulatorBug */,
 				A712CC1D19F15028001D55D1 /* VideoCompositionSimulatorBugTests */,
 				A712CC0219F15028001D55D1 /* Products */,
@@ -238,6 +241,7 @@
 			files = (
 				A712CC0D19F15028001D55D1 /* ViewController.m in Sources */,
 				A712CC0A19F15028001D55D1 /* AppDelegate.m in Sources */,
+				A7E9C2F81A156D340051F07D /* README.md in Sources */,
 				A712CC0719F15028001D55D1 /* main.m in Sources */,
 				A712CC2E19F1A884001D55D1 /* SDAVAssetExportSession.m in Sources */,
 			);
@@ -430,6 +434,7 @@
 				A712CC2619F15028001D55D1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		A712CC2719F15028001D55D1 /* Build configuration list for PBXNativeTarget "VideoCompositionSimulatorBugTests" */ = {
 			isa = XCConfigurationList;
@@ -438,6 +443,7 @@
 				A712CC2919F15028001D55D1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -58,6 +58,31 @@ This has led me to conclude that the bug is restricted to the use of a video com
 Upon success, the console should output "Video export succeeded" and the exported MP4 movie should begin playback.
 
 
+**Workaround**
+
+A workaround was proposed by GitHub user buddydvd [in the Issue tracker](https://github.com/scottcarter/VideoCompositionSimulatorBug/issues/1)
+
+In SDAVAssetExportSession.m change:
+
+```
+self.videoOutput = [AVAssetReaderVideoCompositionOutput assetReaderVideoCompositionOutputWithVideoTracks:videoTracks videoSettings:nil];
+```
+
+to:
+
+```
+self.videoOutput = [AVAssetReaderVideoCompositionOutput assetReaderVideoCompositionOutputWithVideoTracks:[videoTracks arrayByAddingObjectsFromArray:videoTracks] videoSettings:nil];
+```
+
+The explanation from buddydvd was:
+
+*If an asset has two tracks—say an audio track and a video track— and the video track has a trackID of 2, the simulator works fine. On other hand, if the video track's trackID is 1, the simulator hangs at copyNextSampleBuffer. Duplicating the video tracks we pass to AVAssetReaderVideoCompositionOutput appears to work around this issue.*
+
+
+
+
+
+
 
 
 
